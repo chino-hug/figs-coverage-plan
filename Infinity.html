@@ -247,7 +247,75 @@
       <a href="Ways of Working.html">Ways of working</a>
       <a href="Links.html">Links</a>
     </nav>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </header>
+
+<!-- Mobile menu overlay -->
+<div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+  <div class="menu-overlay-head">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+  </div>
+  <div class="menu-eyebrow">Navigation · 07 places</div>
+  <h2 class="menu-title">Where to,<br><span class="italic">friend?</span></h2>
+  <nav class="menu-nav">
+      <a class="menu-link" href="index.html">
+        <span class="menu-num">01</span>
+        <span class="menu-label">Home <span class="italic">— the front door</span></span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link" href="Team.html">
+        <span class="menu-num">02</span>
+        <span class="menu-label">The <span class="italic">team</span></span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link" href="PPPR.html">
+        <span class="menu-num">03</span>
+        <span class="menu-label">P/PP/R</span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link is-current" href="Infinity.html">
+        <span class="menu-num">04</span>
+        <span class="menu-label">Infinity</span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link" href="Calendar.html">
+        <span class="menu-num">05</span>
+        <span class="menu-label">Calendar</span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link" href="Ways of Working.html">
+        <span class="menu-num">06</span>
+        <span class="menu-label">Ways of <span class="italic">working</span></span>
+        <span class="menu-arr">→</span>
+      </a>
+      <a class="menu-link" href="Links.html">
+        <span class="menu-num">07</span>
+        <span class="menu-label">All <span class="italic">links</span></span>
+        <span class="menu-arr">→</span>
+      </a>
+  </nav>
+  <div class="menu-foot">Chino OOO · May 28 — Jun 17, 2026</div>
+</div>
+
+<script>
+  (function() {
+    const ham = document.querySelector('.hamburger');
+    const overlay = document.getElementById('menu-overlay');
+    if (!ham || !overlay) return;
+    function toggle(open) {
+      ham.classList.toggle('is-open', open);
+      overlay.classList.toggle('is-open', open);
+      document.body.classList.toggle('menu-open', open);
+      ham.setAttribute('aria-expanded', open);
+      ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      overlay.setAttribute('aria-hidden', !open);
+    }
+    ham.addEventListener('click', () => toggle(!ham.classList.contains('is-open')));
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
+  })();
+</script>
+
 
   <!-- HERO -->
   <section class="page-hero">
