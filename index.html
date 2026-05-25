@@ -177,9 +177,7 @@ body::after {
 
 /* ── ESC BAR — card on background ── */
 .esc-bar {
-  background: rgba(20,20,20,0.88);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  background: #111111;
   border-radius: var(--radius-lg);
   padding: 1.25rem 2rem;
   margin-bottom: 2.5rem;
@@ -187,7 +185,7 @@ body::after {
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
   animation: fadeUp .5s .05s ease both;
 }
 .esc-av {
@@ -674,6 +672,151 @@ body::after {
       <div class="status-text">3 workstreams active · <strong>2 P0 items</strong> require immediate action on May 28</div>
       <div class="status-date">May 28 – Jun 17 · 21 days</div>
     </div>
+
+    <div class="sec">
+      <div class="sl">Coverage breakdown</div>
+      <div style="background:#111111;border-radius:var(--radius-lg);padding:2.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.2);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+
+          <!-- Animated donut chart -->
+          <div style="display:flex;justify-content:center;align-items:center;">
+            <div style="position:relative;width:240px;height:240px;">
+              <svg id="coverage-chart" viewBox="0 0 240 240" width="240" height="240" style="transform:rotate(-90deg);">
+                <!-- background track -->
+                <circle cx="120" cy="120" r="88" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="28"/>
+                <!-- Matt 35% white -->
+                <circle id="seg-matt" cx="120" cy="120" r="88" fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="butt"
+                  stroke-dasharray="0 552.92" stroke-dashoffset="0"
+                  style="transition:stroke-dasharray 1s cubic-bezier(.4,0,.2,1) 0s;"/>
+                <!-- Mafe 28% blue -->
+                <circle id="seg-mafe" cx="120" cy="120" r="88" fill="none" stroke="#5B8FE8" stroke-width="28" stroke-linecap="butt"
+                  stroke-dasharray="0 552.92" stroke-dashoffset="-193.52"
+                  style="transition:stroke-dasharray 1s cubic-bezier(.4,0,.2,1) .15s, stroke-dashoffset 0s;"/>
+                <!-- Marcela 22% green -->
+                <circle id="seg-marce" cx="120" cy="120" r="88" fill="none" stroke="#22C49A" stroke-width="28" stroke-linecap="butt"
+                  stroke-dasharray="0 552.92" stroke-dashoffset="-348.34"
+                  style="transition:stroke-dasharray 1s cubic-bezier(.4,0,.2,1) .3s, stroke-dashoffset 0s;"/>
+                <!-- Cata 15% purple -->
+                <circle id="seg-cata" cx="120" cy="120" r="88" fill="none" stroke="#A89CF5" stroke-width="28" stroke-linecap="butt"
+                  stroke-dasharray="0 552.92" stroke-dashoffset="-469.98"
+                  style="transition:stroke-dasharray 1s cubic-bezier(.4,0,.2,1) .45s, stroke-dashoffset 0s;"/>
+              </svg>
+              <!-- Center -->
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:800;color:#FFFFFF;line-height:1;letter-spacing:-.03em;">100%</div>
+                <div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">covered</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div style="display:flex;flex-direction:column;gap:1.375rem;">
+
+            <!-- Matt -->
+            <div class="cov-row" data-pct="35">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:9px;height:9px;border-radius:50%;background:#FFFFFF;flex-shrink:0;"></div>
+                  <span style="font-size:13px;font-weight:600;color:#FFFFFF;letter-spacing:-.01em;">Matt Rennick</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.3);font-weight:400;">GCD</span>
+                </div>
+                <span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#FFFFFF;letter-spacing:-.02em;">35%</span>
+              </div>
+              <div style="height:2px;background:rgba(255,255,255,0.1);border-radius:2px;margin-bottom:.5rem;overflow:hidden;">
+                <div class="cov-bar" style="width:0%;height:100%;background:#FFFFFF;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.55;">Creative decisions &amp; approvals · Magazine strategy &amp; meetings · Client-facing guidance P/PP/R</div>
+            </div>
+
+            <!-- Mafe -->
+            <div class="cov-row" data-pct="28">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:9px;height:9px;border-radius:50%;background:#5B8FE8;flex-shrink:0;"></div>
+                  <span style="font-size:13px;font-weight:600;color:#FFFFFF;letter-spacing:-.01em;">Mafe Pinzón</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.3);font-weight:400;">VDL · Magazine</span>
+                </div>
+                <span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#5B8FE8;letter-spacing:-.02em;">28%</span>
+              </div>
+              <div style="height:2px;background:rgba(255,255,255,0.1);border-radius:2px;margin-bottom:.5rem;overflow:hidden;">
+                <div class="cov-bar" style="width:0%;height:100%;background:#5B8FE8;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1) .15s;"></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.55;">Magazine setup, timelines &amp; definitions · All decisions before Matt · Full project ownership</div>
+            </div>
+
+            <!-- Marcela -->
+            <div class="cov-row" data-pct="22">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:9px;height:9px;border-radius:50%;background:#22C49A;flex-shrink:0;"></div>
+                  <span style="font-size:13px;font-weight:600;color:#FFFFFF;letter-spacing:-.01em;">Marcela</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.3);font-weight:400;">VDL · Infinity</span>
+                </div>
+                <span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#22C49A;letter-spacing:-.02em;">22%</span>
+              </div>
+              <div style="height:2px;background:rgba(255,255,255,0.1);border-radius:2px;margin-bottom:.5rem;overflow:hidden;">
+                <div class="cov-bar" style="width:0%;height:100%;background:#22C49A;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1) .3s;"></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.55;">Sprint task assignments · Faith communication · Quality control · All Infinity files on time</div>
+            </div>
+
+            <!-- Cata -->
+            <div class="cov-row" data-pct="15">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:9px;height:9px;border-radius:50%;background:#A89CF5;flex-shrink:0;"></div>
+                  <span style="font-size:13px;font-weight:600;color:#FFFFFF;letter-spacing:-.01em;">Cata H</span>
+                  <span style="font-size:10px;color:rgba(255,255,255,0.3);font-weight:400;">VDL · P/PP/R</span>
+                </div>
+                <span style="font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:#A89CF5;letter-spacing:-.02em;">15%</span>
+              </div>
+              <div style="height:2px;background:rgba(255,255,255,0.1);border-radius:2px;margin-bottom:.5rem;overflow:hidden;">
+                <div class="cov-bar" style="width:0%;height:100%;background:#A89CF5;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1) .45s;"></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.55;">Selector tile &amp; Notice with Faith · Unblocking P/PP/R modules · Updates to Faith &amp; Z</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      const circ = 552.92;
+      const segs = [
+        {id:'seg-matt',  len:193.52, offset:0},
+        {id:'seg-mafe',  len:154.82, offset:-193.52},
+        {id:'seg-marce', len:121.64, offset:-348.34},
+        {id:'seg-cata',  len:82.94,  offset:-469.98},
+      ];
+      function animate(){
+        segs.forEach((s,i) => {
+          const el = document.getElementById(s.id);
+          if(!el) return;
+          const gap = circ - s.len;
+          setTimeout(() => {
+            el.style.strokeDasharray = s.len + ' ' + gap;
+            el.style.strokeDashoffset = s.offset;
+          }, i * 150);
+        });
+        // animate bars
+        document.querySelectorAll('.cov-bar').forEach((bar, i) => {
+          const row = bar.closest('.cov-row');
+          const pct = row ? row.dataset.pct : 0;
+          setTimeout(() => { bar.style.width = pct + '%'; }, i * 150);
+        });
+      }
+      // Trigger when overview tab is visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting){ animate(); observer.disconnect(); }});
+      }, {threshold: 0.3});
+      const chart = document.getElementById('coverage-chart');
+      if(chart) observer.observe(chart);
+      // Also trigger if already visible on load
+      setTimeout(animate, 400);
+    })();
+    </script>
 
     <div class="sec">
       <div class="sl">Key files</div>
