@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P/PP/R — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Magazine feature */
+  .magazine {
+    background: rgba(20, 18, 14, 0.90);
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 48px 52px 44px;
+    color: rgba(255,255,255,0.92);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 56px;
+    background-image:
+      radial-gradient(ellipse 70% 60% at 100% 0%, rgba(180,71,31,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 0% 100%, rgba(110,157,224,0.12) 0%, transparent 55%);
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 30px 80px -40px rgba(20,18,14,0.45);
+  }
+  .magazine:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 40px 100px -40px rgba(20,18,14,0.55);
+  }
+  .mag-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .mag-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .mag-eyebrow::before { content:''; width: 36px; height: 1px; background: rgba(255,255,255,0.4); }
+  .mag-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: clamp(56px, 8vw, 104px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: #fff;
+  }
+  .mag-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: rgba(255,255,255,0.55); letter-spacing: -0.025em; }
+  .mag-tags { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
+
+  .mag-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.88);
+    margin: 32px 0;
+    padding: 18px 0 18px 22px;
+    border-left: 2px solid rgba(244,169,155,0.45);
+    max-width: 760px;
+  }
+
+  .mag-kicker {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 14px;
+  }
+  .mag-weeks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 880px) { .mag-weeks { grid-template-columns: repeat(2, 1fr); } }
+  .wk {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .wk.now { background: rgba(244,169,155,0.10); border-color: rgba(244,169,155,0.25); }
+  .wk-l {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+  }
+  .wk.now .wk-l { color: #F4A99B; }
+  .wk-c { font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,0.78); }
+
+  .mag-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    gap: 16px; flex-wrap: wrap;
+  }
+  .mag-note { font-size: 12.5px; color: rgba(255,255,255,0.6); line-height: 1.55; max-width: 540px; }
+  .mag-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .mag-link .arr {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: transform .2s;
+  }
+  .mag-link:hover .arr { transform: rotate(-45deg); background: #fff; color: var(--dark); }
+
+  /* Task block */
+  .task {
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(24,22,19,0.04),
+      0 6px 28px rgba(20,18,14,0.06);
+  }
+  .task:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 24px 60px -30px rgba(20,18,14,0.28);
+  }
+  .task-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .task-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  }
+  .task-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); letter-spacing: -0.02em; }
+  .task-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .task-goal {
+    background: rgba(246, 243, 235, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-left: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 22px;
+  }
+  .task-goal strong { font-weight: 500; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="PPPR.html" class="is-current">P/PP/R</a>
+      <a href="Infinity.html">Infinity</a>
+      <a href="Calendar.html">Calendar</a>
+      <a href="Ways of Working.html">Ways of working</a>
+      <a href="Links.html">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 03 · Coverage plan · Google Store</div>
+      <h1 class="page-title">P/PP/R<br><span class="italic">— the system</span><br><span class="accent">in motion.</span></h1>
+      <p class="page-sub">One six-week project on the runway, three system milestones to push. Mafe runs Magazine; Cata holds the system.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Leads</div>
+        <div class="v italic">Mafe · Cata<small>VDLs</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">PM</div>
+        <div class="v italic">Jhonatan G.<small>Sr. PM</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Escalate to</div>
+        <div class="v italic">Matt Rennick<small>GCD</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- MAGAZINE FEATURE -->
+  <section class="magazine" id="magazine">
+    <div class="mag-top">
+      <div>
+        <div class="mag-eyebrow">№ 01 · Feature · 6-week project</div>
+        <h2 class="mag-title">Magazine,<br><span class="italic">GStore.</span></h2>
+      </div>
+      <div class="mag-tags">
+        <span class="tag p0">🔴 Top priority</span>
+        <span class="tag dark-outline">👁 Matt's eyes</span>
+        <span class="tag dark-outline">Mafe owns this</span>
+      </div>
+    </div>
+
+    <div class="mag-quote">
+      "How can non-designers and non-Figma experts create from templates a Google Store web page that lives on GStore as a reference?"
+    </div>
+
+    <div class="mag-kicker">KO deliverables · due June 6</div>
+    <div class="mag-weeks">
+      <div class="wk now">
+        <div class="wk-l">W0 · Now</div>
+        <div class="wk-c">Brief intake. Team alignment. Scoping the KO deck.</div>
+      </div>
+      <div class="wk now">
+        <div class="wk-l">KO · May 29</div>
+        <div class="wk-c">Strategy · Content strategy · Game plan · Timeline · Example deliverable.</div>
+      </div>
+      <div class="wk">
+        <div class="wk-l">Weeks 1–2</div>
+        <div class="wk-c">Template system exploration. Non-designer flow.</div>
+      </div>
+      <div class="wk">
+        <div class="wk-l">Weeks 3–4</div>
+        <div class="wk-c">Template builds. Review rounds with Google.</div>
+      </div>
+      <div class="wk">
+        <div class="wk-l">Weeks 5–6</div>
+        <div class="wk-c">Finalize. Handoff. Publish to GStore.</div>
+      </div>
+    </div>
+
+    <div class="mag-foot">
+      <div class="mag-note">Matt should be engaged before May 29 KO to review the strategy and example deliverable. Mafe owns execution. Jhonatan owns PM coordination.</div>
+      <a class="mag-link" href="https://www.figma.com/design/ZjW7p1DX3HbknLsSICBOZi/GStore---Magazine-templates?node-id=1-54261&t=8G1STvZ1eoIYDNbc-1" target="_blank">
+        Open in Figma <span class="arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — CATA OWNS -->
+  <section class="sec" id="cata">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 / Cata owns</div>
+        <h2 class="sec-title">System work, <span class="italic">in three pieces.</span></h2>
+      </div>
+      <p class="sec-desc">Selector tile, Z's pages, and the Notice bridge. Marcela guides where it touches the Infinity side.</p>
+    </div>
+
+    <!-- Selector tile -->
+    <div class="task" id="selector">
+      <div class="task-head">
+        <div>
+          <div class="task-title"><span class="dot dot-p"></span>Selector tile <span class="italic">→ Infinity Core</span></div>
+          <div class="task-sub">Owner: Cata H · Guidance: Marcela · Most important P/PP/R system milestone</div>
+        </div>
+        <span class="tag p0">P0 milestone</span>
+      </div>
+      <div class="task-goal"><strong>Goal:</strong> Cata takes ownership to answer Faith's document, reduce uncertainty, and get the green light to publish to Core. Marcela guides from the Infinity side.</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th style="width:46%">Step</th><th style="width:22%">Owner</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="serif">Review Faith's Selector Tile document<span class="italic"> — open questions</span></td><td>Cata H</td><td class="muted">Do this before drafting a response. Marcela flags system blockers.</td></tr>
+            <tr><td class="serif">Update the <span class="italic">handoff file</span> if needed</td><td>Cata H + Marcela</td><td class="muted">Marcela validates Infinity system alignment.</td></tr>
+            <tr><td class="serif">Draft a clear <span class="italic">written response</span></td><td>Cata H</td><td class="muted">Address every open point. No ambiguous answers.</td></tr>
+            <tr><td class="serif">Marcela <span class="italic">reviews</span> before sending</td><td>Marcela</td><td class="muted">Infinity sign-off required. Marcela is the bridge.</td></tr>
+            <tr><td class="serif">Send to Faith · <span class="italic">align on green light</span></td><td>Cata H</td><td class="muted">No response in 2 days → follow up via GChat.</td></tr>
+            <tr><td class="serif">Publish to <span class="italic">Core</span></td><td>Marcela (publish) · Cata (QA)</td><td class="muted">Once Faith's GTO received. Standard publish + propagation.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Z's pages + Pharos -->
+    <div class="task">
+      <div class="task-head">
+        <div>
+          <div class="task-title"><span class="dot dot-p"></span>Z's <span class="italic">page updates</span> + Pharos Q2</div>
+          <div class="task-sub">Owner: Cata H + team</div>
+        </div>
+        <span class="tag p1">P1</span>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th style="width:46%">Task</th><th style="width:24%">Owner</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="serif">Review Z's <span class="italic">Figma comments</span></td><td>Cata H</td><td class="muted">Prioritize by impact before starting updates.</td></tr>
+            <tr><td class="serif">Execute updates <span class="italic">across pages &amp; components</span></td><td>Cata H + team</td><td class="muted">Peer review required before delivery.</td></tr>
+            <tr><td class="serif">Finalize <span class="italic">Pharos support Q2</span></td><td>Andrea T. · Juan R. · Mafe P.</td><td class="muted">Push to completion. Flag blockers immediately.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notice -->
+    <div class="task" id="notice">
+      <div class="task-head">
+        <div>
+          <div class="task-title"><span class="dot dot-p"></span>Notice component <span class="italic">— P/PP/R ↔ Infinity bridge</span></div>
+          <div class="task-sub">Owner: Cata H · Infinity liaison: Marcela</div>
+        </div>
+        <span class="tag p1">P1</span>
+      </div>
+      <div class="task-goal"><strong>Goal:</strong> act as a bridge between Infinity and P/PP/R. Synthesize a clear proposal that works for both sides — not a list of options.</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th style="width:46%">Step</th><th style="width:24%">Owner</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="serif">Review all <span class="italic">back-and-forth</span></td><td>Cata H</td><td class="muted">Figma, GChat, docs. Consolidate into a summary.</td></tr>
+            <tr><td class="serif">Identify the <span class="italic">core conflict</span></td><td>Cata H + Marcela</td><td class="muted">Marcela knows the system. Cata knows the production need.</td></tr>
+            <tr><td class="serif">Draft a proposal — <span class="italic">one recommendation</span></td><td>Cata H</td><td class="muted">Keep it simple and decisive. Not a menu.</td></tr>
+            <tr><td class="serif">Marcela <span class="italic">validates feasibility</span></td><td>Marcela</td><td class="muted">Must be approved before presenting to client.</td></tr>
+            <tr><td class="serif">Present to Faith + Google</td><td>Cata H</td><td class="warn">If blocked → escalate to Matt Rennick.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · P/PP/R / 3-week window</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>

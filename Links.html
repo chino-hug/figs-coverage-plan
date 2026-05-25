@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Pinned row */
+  .row.pinned {
+    background: rgba(46,93,58,0.06);
+    border: 1px solid rgba(46,93,58,0.18);
+    border-radius: 14px;
+    padding: 22px 18px;
+    margin-bottom: 18px;
+    grid-template-columns: 60px 1fr auto auto;
+  }
+  .row.pinned:hover { background: rgba(46,93,58,0.10); padding-left: 24px; }
+  .row.pinned .row-title { color: var(--accent-2); }
+  .row.pinned .row-title .italic { color: rgba(46,93,58,0.7); }
+
+  .row.no-url {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .row.no-url .row-title { font-style: italic; }
+
+  /* Group head */
+  .group-head {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 24px;
+    align-items: end;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .group-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  .group-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); font-size: 28px; letter-spacing: -0.02em; }
+  .group-bullet {
+    display: inline-block;
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .group-pppr .group-bullet { background: var(--accent-3); }
+  .group-inf .group-bullet { background: var(--accent-2); }
+  .group-prog .group-bullet { background: var(--accent-4); }
+  .group-gen .group-bullet { background: var(--accent); }
+  .group-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 8px;
+  }
+
+  /* Glyph */
+  .glyph {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    background: var(--paper-2);
+  }
+  .glyph.figma { background: linear-gradient(135deg, #FF7262 0%, #A259FF 50%, #1ABCFE 100%); color: #fff; font-size: 11px; font-weight: 700; }
+  .glyph.docs { background: rgba(46,93,58,0.12); }
+  .glyph.sheet { background: rgba(46,93,58,0.12); }
+  .glyph.slides { background: rgba(180,71,31,0.12); }
+  .glyph.slack { background: rgba(140,108,213,0.12); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="PPPR.html">P/PP/R</a>
+      <a href="Infinity.html">Infinity</a>
+      <a href="Calendar.html">Calendar</a>
+      <a href="Ways of Working.html">Ways of working</a>
+      <a href="Links.html" class="is-current">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 07 · Coverage plan · The whole index</div>
+      <h1 class="page-title">All the<br><span class="italic">links</span><br><span class="accent">in one place.</span></h1>
+      <p class="page-sub">Figma files, Google docs, sheets, the Slack gem. Grouped by workstream so the team doesn't have to dig.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Files indexed</div>
+        <div class="v italic">23<small>and counting</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Most-used</div>
+        <div class="v italic">Publish doc<small>↓ keep current</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- PINNED -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">01 / Pinned</div>
+        <h2 class="sec-title">The one that <span class="italic">must stay live.</span></h2>
+      </div>
+      <p class="sec-desc">If anything goes stale, it's this one. Marcela updates it after every publish step.</p>
+    </div>
+
+    <a class="row pinned" href="https://docs.google.com/document/d/1LX3JjvRE9AwYok0MAQVxdYtyhIIvmKUEeQ-MvyxWFTo/edit" target="_blank">
+      <span class="row-num">📌 01</span>
+      <div class="row-body">
+        <div class="row-title">Diffusion Effect <span class="italic">— Publish Status Doc</span></div>
+        <div class="row-desc">Live source of truth for Google. Update after every publish step.</div>
+      </div>
+      <span class="tag sp">Google Doc</span>
+      <span class="row-arr">↗</span>
+    </a>
+  </section>
+
+  <!-- P/PP/R -->
+  <section class="sec group-pppr">
+    <div class="group-head">
+      <h2 class="group-title"><span class="group-bullet"></span>P/PP/R <span class="italic">— Google Store</span></h2>
+      <div class="group-meta">Group 02 · 6 files</div>
+    </div>
+
+    <div class="row-list">
+      <a class="row" href="https://www.figma.com/design/qiyNJOwssUISJ2gyqM3ng2/-WIP---Google--%F0%9F%8C%B6%EF%B8%8F-P-PP-R-Basis?node-id=2806-8599" target="_blank">
+        <span class="row-num">№ 01</span>
+        <div class="row-body">
+          <div class="row-title">P/PP/R <span class="italic">— Basis (WIP)</span></div>
+          <div class="row-desc">Client · Working file for system basis.</div>
+        </div>
+        <span class="tag clay">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/pexpZ1I4rm1qmGAQfayOTn/-Google--P-PP-R-library?node-id=0-1" target="_blank">
+        <span class="row-num">№ 02</span>
+        <div class="row-body">
+          <div class="row-title">P/PP/R <span class="italic">— Library</span></div>
+          <div class="row-desc">Client · Production library.</div>
+        </div>
+        <span class="tag clay">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/QSbcI7vKkXzfyuxyEkUIe2/%F0%9F%8C%B6%EF%B8%8F-P-PP-R-Module-Development?node-id=9465-11983" target="_blank">
+        <span class="row-num">№ 03</span>
+        <div class="row-body">
+          <div class="row-title">P/PP/R <span class="italic">— Module Development</span></div>
+          <div class="row-desc">Client · Where modules are built.</div>
+        </div>
+        <span class="tag clay">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/ZjW7p1DX3HbknLsSICBOZi/GStore---Magazine-templates?node-id=1-54261" target="_blank">
+        <span class="row-num">№ 04</span>
+        <div class="row-body">
+          <div class="row-title">GStore <span class="italic">— Magazine templates</span></div>
+          <div class="row-desc">Client · The Magazine project working file.</div>
+        </div>
+        <span class="tag clay">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row no-url" href="#">
+        <span class="row-num">№ 05</span>
+        <div class="row-body">
+          <div class="row-title">Faith's Selector Tile doc</div>
+          <div class="row-desc">URL pending — add when shared.</div>
+        </div>
+        <span class="tag outline">Pending</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row no-url" href="#">
+        <span class="row-num">№ 06</span>
+        <div class="row-body">
+          <div class="row-title">Z's Figma comments</div>
+          <div class="row-desc">URL pending — add when shared.</div>
+        </div>
+        <span class="tag outline">Pending</span>
+        <span class="row-arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- INFINITY LIBRARIES -->
+  <section class="sec group-inf">
+    <div class="group-head">
+      <h2 class="group-title"><span class="group-bullet"></span>Infinity <span class="italic">— Libraries</span></h2>
+      <div class="group-meta">Group 03 · 5 files</div>
+    </div>
+
+    <div class="row-list">
+      <a class="row" href="https://www.figma.com/design/av2DsjMRAMX7ufeRs0ao9t/Infinity-Core-Library?version-id=2326471792994632299&node-id=11660-75229" target="_blank">
+        <span class="row-num">⭐ 01</span>
+        <div class="row-body">
+          <div class="row-title">Core <span class="italic">Library</span></div>
+          <div class="row-desc">Google · The system. Where publish lands.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/DSJwa3swLdEySDFfhjR9Ef/Infinity-Icon---Logo-Library?node-id=1-21" target="_blank">
+        <span class="row-num">⭐ 02</span>
+        <div class="row-body">
+          <div class="row-title">Icons + Logo <span class="italic">Library</span></div>
+          <div class="row-desc">Google · Where Icon Updates land in S12.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/9tZNEmcuQjydMTCdbiFqEM/Infinity-Module-Library?node-id=565-15654" target="_blank">
+        <span class="row-num">⭐ 03</span>
+        <div class="row-body">
+          <div class="row-title">Module <span class="italic">Library</span></div>
+          <div class="row-desc">Google · Module-level components.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/qmFen7MoqsSrJdnCsRQG7M/Infinity-Community-Library-Expansion?node-id=5-429" target="_blank">
+        <span class="row-num">⭐ 04</span>
+        <div class="row-body">
+          <div class="row-title">Community <span class="italic">Library</span></div>
+          <div class="row-desc">Google · Community expansion.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/UZQVIY3Ui6UzrqbJw6xpqo/Infinity-Tools-Library?node-id=216-6" target="_blank">
+        <span class="row-num">⭐ 05</span>
+        <div class="row-body">
+          <div class="row-title">Tools <span class="italic">Library</span></div>
+          <div class="row-desc">Google · Internal tooling.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- INFINITY FILES -->
+  <section class="sec group-inf">
+    <div class="group-head">
+      <h2 class="group-title"><span class="group-bullet"></span>Infinity <span class="italic">— Working files</span></h2>
+      <div class="group-meta">Group 04 · 6 files</div>
+    </div>
+
+    <div class="row-list">
+      <a class="row" href="https://www.figma.com/design/d7v1kYBqdh2zSRquzKO93u/-Google--Sandbox---Google-Fi---G-Store--V2-?node-id=165-2313" target="_blank">
+        <span class="row-num">№ 01</span>
+        <div class="row-body">
+          <div class="row-title">Sandbox <span class="italic">— Fi &amp; G-Store V2</span></div>
+          <div class="row-desc">Client · Google's sandbox file.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/skQTstrLZp2fH2IAHQpjTj/-Google--Sandbox---Google-Fi---G-Store?node-id=6867-208168" target="_blank">
+        <span class="row-num">№ 02</span>
+        <div class="row-body">
+          <div class="row-title">Sandbox <span class="italic">— Fi &amp; G-Store</span></div>
+          <div class="row-desc">Client · Older sandbox.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/zkFNE3qF3qMwZHnuJqqTnw/-Fi-x-Infinity--5050-w--Broadband-Facts?node-id=1-420" target="_blank">
+        <span class="row-num">№ 03</span>
+        <div class="row-body">
+          <div class="row-title">5050 <span class="italic">w/ Broadband Facts</span></div>
+          <div class="row-desc">Client · Fi × Infinity working file.</div>
+        </div>
+        <span class="tag sp">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/IDwaCD0wT4UGOuCYfaIq9Q/-INTERNAL--Google-Fi---G-Store--V4-?node-id=4176-13784" target="_blank">
+        <span class="row-num">№ 04</span>
+        <div class="row-body">
+          <div class="row-title">[INTERNAL] <span class="italic">Fi &amp; G-Store V4</span></div>
+          <div class="row-desc">Internal · Current internal file.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/ETm9HGPFiHYxk8KiKF2GmK/-Internal---Google-Fi---G-Store?node-id=538-1607" target="_blank">
+        <span class="row-num">№ 05</span>
+        <div class="row-body">
+          <div class="row-title">[Internal] <span class="italic">Fi &amp; G-Store</span></div>
+          <div class="row-desc">Internal · Earlier file.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/XbKvH3yRcTide64KBTJBQl/-INTERNAL--Google-Fi---G-Store--V3-?node-id=870-67144" target="_blank">
+        <span class="row-num">№ 06</span>
+        <div class="row-body">
+          <div class="row-title">[INTERNAL] <span class="italic">Fi &amp; G-Store V3</span></div>
+          <div class="row-desc">Internal · Reference version.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="sec group-prog">
+    <div class="group-head">
+      <h2 class="group-title"><span class="group-bullet"></span>Program <span class="italic">— Operations</span></h2>
+      <div class="group-meta">Group 05 · 3 files</div>
+    </div>
+
+    <div class="row-list">
+      <a class="row" href="https://docs.google.com/spreadsheets/d/1kOvWRGLcs3OVXTRf73LlNgkEhHd6trmQbvpQ0vHAn6A/edit" target="_blank">
+        <span class="row-num">№ 01</span>
+        <div class="row-body">
+          <div class="row-title">Sprint <span class="italic">planning sheet</span></div>
+          <div class="row-desc">S11 + S12 tasks · story points · live status.</div>
+        </div>
+        <span class="tag sp">Sheet</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://docs.google.com/presentation/d/1LeYFMKNx5ju-9OaxgY-0BUp4RoQ169C4SuG1nO0-WtY/edit" target="_blank">
+        <span class="row-num">№ 02</span>
+        <div class="row-body">
+          <div class="row-title">FiGS <span class="italic">Ops Playbook</span></div>
+          <div class="row-desc">Ceremonies, intake, ways of working.</div>
+        </div>
+        <span class="tag p1">Slides</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://hugeinc.enterprise.slack.com/archives/D61NLFYLB" target="_blank">
+        <span class="row-num">№ 03</span>
+        <div class="row-body">
+          <div class="row-title">Acceptance <span class="italic">Criteria Gem</span></div>
+          <div class="row-desc">Slack · Quick AC reference.</div>
+        </div>
+        <span class="tag p1">Slack</span>
+        <span class="row-arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GENERAL -->
+  <section class="sec group-gen">
+    <div class="group-head">
+      <h2 class="group-title"><span class="group-bullet"></span>General <span class="italic">— Toolkit + standards</span></h2>
+      <div class="group-meta">Group 06 · 3 files</div>
+    </div>
+
+    <div class="row-list">
+      <a class="row" href="https://www.figma.com/design/gDVQBCA724rojqUngO9SnO/%F0%9F%A7%B0---Internal--Fi---Store-toolkit?node-id=15-332" target="_blank">
+        <span class="row-num">№ 01</span>
+        <div class="row-body">
+          <div class="row-title">Fi &amp; Store <span class="italic">toolkit</span></div>
+          <div class="row-desc">Internal · Reusable patterns.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/4NyB3zQeTEjK7ni4VfkRqK/%F0%9F%93%96-System-quality-standards?node-id=279-45073" target="_blank">
+        <span class="row-num">№ 02</span>
+        <div class="row-body">
+          <div class="row-title">System <span class="italic">quality standards</span></div>
+          <div class="row-desc">Internal · The bar for delivery.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+
+      <a class="row" href="https://www.figma.com/design/RsFOEPhAcMl8A5W4id5RSq/%F0%9F%8D%AC--Internal-Infinity--Small-Strategy-Bites?node-id=75-244" target="_blank">
+        <span class="row-num">№ 03</span>
+        <div class="row-body">
+          <div class="row-title">Small <span class="italic">Strategy Bites</span></div>
+          <div class="row-desc">Internal · Quick reference.</div>
+        </div>
+        <span class="tag outline">Figma</span>
+        <span class="row-arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · Links / 23 files · 6 groups</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>

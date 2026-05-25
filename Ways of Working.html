@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ways of working — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Decision cards — list of "if this, then that" */
+  .rules { display: flex; flex-direction: column; gap: 0; }
+  .rule {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, 0.9fr);
+    gap: 30px;
+    padding: 28px 4px;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .rule:first-child { border-top: 1px solid var(--rule); }
+  .rule-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted-2);
+    padding-top: 4px;
+  }
+  .rule-if {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .rule-if .italic { font-style: italic; color: var(--muted); font-size: 20px; display: block; margin-top: 4px; }
+  .rule-then {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    padding-top: 6px;
+  }
+  .rule-then strong {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .rule-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+  .rule-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    align-self: flex-start;
+    line-height: 1.4;
+  }
+  .rule-no {
+    font-size: 12px;
+    color: var(--warn);
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .rule-no::before {
+    content: 'Never ';
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-style: normal;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 880px) {
+    .rule { grid-template-columns: 36px 1fr; gap: 16px; }
+    .rule-then, .rule-meta { grid-column: 2; }
+  }
+
+  /* Channels grid */
+  .channels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  @media (max-width: 1080px) { .channels { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px)  { .channels { grid-template-columns: 1fr; } }
+  .ch {
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 220px;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(24,22,19,0.04),
+      0 6px 28px rgba(20,18,14,0.06);
+  }
+  .ch:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 24px 60px -30px rgba(20,18,14,0.28);
+  }
+  .ch-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted-2);
+    margin-bottom: 8px;
+  }
+  .ch-name {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .ch-name .italic { font-style: italic; color: var(--muted); }
+  .ch-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .ch-desc strong { color: var(--ink); font-weight: 500; }
+
+  /* Pull quote */
+  .pull {
+    background: rgba(20, 18, 14, 0.90);
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.92);
+    border-radius: 22px;
+    padding: 56px 56px 48px;
+    margin: 56px 0;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 100% 0%, rgba(180,71,31,0.18) 0%, transparent 55%);
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 30px 80px -40px rgba(20,18,14,0.45);
+  }
+  .pull:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 40px 100px -40px rgba(20,18,14,0.55);
+  }
+  .pull-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pull-eyebrow::before { content: ''; width: 36px; height: 1px; background: rgba(255,255,255,0.4); }
+  .pull-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(32px, 4.5vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #fff;
+    max-width: 1000px;
+  }
+  .pull-quote .accent { color: #F4A99B; font-style: normal; }
+  .pull-attr {
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="PPPR.html">P/PP/R</a>
+      <a href="Infinity.html">Infinity</a>
+      <a href="Calendar.html">Calendar</a>
+      <a href="Ways of Working.html" class="is-current">Ways of working</a>
+      <a href="Links.html">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 06 · Coverage plan · How we operate</div>
+      <h1 class="page-title">Ways<br>of <span class="italic">working,</span><br><span class="accent">on rails.</span></h1>
+      <p class="page-sub">Seven decisions you'll meet in the next three weeks, and exactly how to handle each one. When in doubt, flag early — never absorb silently.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Decisions</div>
+        <div class="v italic">Seven<small>codified</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Channels</div>
+        <div class="v italic">Four<small>GChat · Figma · Email · Ceremonies</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- PULL QUOTE -->
+  <section class="pull">
+    <div class="pull-eyebrow">Operating principle</div>
+    <div class="pull-quote">
+      Flag early. Never absorb a P0 blocker silently. <span class="accent">The whole team is faster than any one person.</span>
+    </div>
+    <div class="pull-attr">— Coverage rule № 01</div>
+  </section>
+
+  <!-- DECISION RULES -->
+  <section class="sec" id="decisions">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">01 / Decision framework</div>
+        <h2 class="sec-title">When this happens, <span class="italic">do this.</span></h2>
+      </div>
+      <p class="sec-desc">Seven situations the team will hit. Each has an action, an owner, and one thing not to do.</p>
+    </div>
+
+    <div class="rules">
+      <article class="rule">
+        <span class="rule-num">№ 01</span>
+        <div class="rule-if">New brief arrives.<span class="italic">An incoming request.</span></div>
+        <div class="rule-then"><strong>Action</strong>PM logs it in Buganizer. Intake via GChat or Monday session. Lead estimates LOE.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">PM + VDL</span>
+          <p class="rule-no">start without a brief and LOE estimate.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 02</span>
+        <div class="rule-if">A task gets blocked.<span class="italic">Or risks missing deadline.</span></div>
+        <div class="rule-then"><strong>Action</strong>Flag in GChat same day. PM re-prioritizes. Lead proposes scope trade-off.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">PM + VDL → Matt</span>
+          <p class="rule-no">wait for the next ceremony to flag it.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 03</span>
+        <div class="rule-if">Creative decision needs approval.<span class="italic">A direction call.</span></div>
+        <div class="rule-then"><strong>Action</strong>VDL reviews first. If client-facing or strategic → Matt Rennick.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">VDL · Matt for client</span>
+          <p class="rule-no">send to Google without Matt's review on Magazine.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 04</span>
+        <div class="rule-if">P0 blocker hits mid-sprint.<span class="italic">Something is on fire.</span></div>
+        <div class="rule-then"><strong>Action</strong>Stop current task. PM + lead align on reprioritization. Notify Matt same day.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">PM + Lead + Matt</span>
+          <p class="rule-no">absorb P0s silently — escalate immediately.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 05</span>
+        <div class="rule-if">Work is ready for Google review.<span class="italic">Delivery time.</span></div>
+        <div class="rule-then"><strong>Action</strong>Peer review sign-off required. PM sends via email with sprint report.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">VDL sign-off · PM delivers</span>
+          <p class="rule-no">share with Google before internal peer review.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 06</span>
+        <div class="rule-if">Infinity publish step is completed.<span class="italic">Diffusion progress.</span></div>
+        <div class="rule-then"><strong>Action</strong>Marcela updates the Diffusion Effect publish doc immediately with date, status, and libraries affected.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">Marcela owns doc</span>
+          <p class="rule-no">leave the doc stale — it's Google's source of truth.</p>
+        </div>
+      </article>
+
+      <article class="rule">
+        <span class="rule-num">№ 07</span>
+        <div class="rule-if">Scope change proposed mid-project.<span class="italic">The brief shifts.</span></div>
+        <div class="rule-then"><strong>Action</strong>Treat as a new brief. Log it. Flag to PM. Leads validate LOE impact before accepting.</div>
+        <div class="rule-meta">
+          <span class="rule-tag">PM + VDL + Matt</span>
+          <p class="rule-no">absorb scope creep without a new LOE.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- COMMS -->
+  <section class="sec" id="channels">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 / Communication</div>
+        <h2 class="sec-title">Four channels, <span class="italic">distinct uses.</span></h2>
+      </div>
+      <p class="sec-desc">Keep them separate. If a Figma comment matters, it gets a GChat ping. If a decision is final, it goes in email.</p>
+    </div>
+
+    <div class="channels">
+      <article class="ch">
+        <div>
+          <div class="ch-num">№ 01</div>
+          <div class="ch-name">G<span class="italic">Chat</span></div>
+        </div>
+        <p class="ch-desc"><strong>Daily.</strong> Sync, blockers, quick feedback. FiGS Leads chat for cross-team items. Project-specific chats for each workstream.</p>
+      </article>
+
+      <article class="ch">
+        <div>
+          <div class="ch-num">№ 02</div>
+          <div class="ch-name">Figma<span class="italic">comments</span></div>
+        </div>
+        <p class="ch-desc"><strong>Design feedback.</strong> Always follow up a batch of comments with a GChat ping so nothing gets lost in threads.</p>
+      </article>
+
+      <article class="ch">
+        <div>
+          <div class="ch-num">№ 03</div>
+          <div class="ch-name">Email<span class="italic">— formal</span></div>
+        </div>
+        <p class="ch-desc"><strong>Sprint reports.</strong> Formal approvals, deliverables, meeting recaps. All weekly reports go out via email.</p>
+      </article>
+
+      <article class="ch">
+        <div>
+          <div class="ch-num">№ 04</div>
+          <div class="ch-name">Ceremonies</div>
+        </div>
+        <p class="ch-desc"><strong>Keep them all.</strong> Monday = FiGS Weekly Ops. VDLs run design syncs. PMs run intake and briefing.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · Ways of working / 7 rules · 4 channels</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Sprint band */
+  .sprint-band {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .band {
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .band-s11 { background: rgba(46,93,58,0.10); border: 1px solid rgba(46,93,58,0.20); }
+  .band-s12 { background: rgba(44,75,134,0.08); border: 1px solid rgba(44,75,134,0.18); }
+  .band .label {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .band .label .italic { font-style: italic; color: var(--muted); }
+  .band .dates {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Week section */
+  .week {
+    margin-bottom: 36px;
+  }
+  .week-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .week-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .week-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .week-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); letter-spacing: -0.02em; }
+  .week-summary {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 380px;
+    padding-bottom: 6px;
+  }
+  .week-summary strong { color: var(--ink); font-weight: 500; }
+
+  /* Day grid */
+  .days {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 900px) {
+    .days { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .days { grid-template-columns: 1fr; }
+  }
+  .day {
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.75),
+      0 4px 18px rgba(20,18,14,0.04);
+  }
+  .day:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.75),
+      0 18px 40px -20px rgba(20,18,14,0.22);
+  }
+  .day.milestone {
+    background: rgba(20, 18, 14, 0.90);
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    color: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 8px 32px -10px rgba(20,18,14,0.4);
+  }
+  .day.milestone:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 24px 60px -20px rgba(20,18,14,0.5);
+  }
+  .day.ooo-day {
+    background: rgba(180,71,31,0.06);
+    border-color: rgba(180,71,31,0.18);
+  }
+  .day-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule-soft);
+    margin-bottom: 6px;
+  }
+  .day.milestone .day-head { border-bottom-color: rgba(255,255,255,0.1); }
+  .day-day {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .day.milestone .day-day { color: rgba(255,255,255,0.45); }
+  .day-num {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .day.milestone .day-num { color: #fff; }
+  .day-num .italic { font-style: italic; color: var(--muted); }
+  .day.milestone .day-num .italic { color: rgba(255,255,255,0.5); }
+
+  .evt {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    line-height: 1.4;
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    color: var(--ink-2);
+    background: rgba(24,22,19,0.04);
+  }
+  .evt::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--muted);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .evt.inf { background: rgba(46,93,58,0.08); color: var(--accent-2); }
+  .evt.inf::before { background: var(--accent-2); }
+  .evt.pppr { background: rgba(44,75,134,0.08); color: var(--accent-3); }
+  .evt.pppr::before { background: var(--accent-3); }
+  .evt.warn { background: rgba(180,71,31,0.10); color: var(--accent); font-weight: 500; }
+  .evt.warn::before { background: var(--accent); }
+  .evt.figs { background: rgba(140,108,213,0.08); color: #5E45A0; }
+  .evt.figs::before { background: var(--accent-4); }
+  .evt.mag {
+    background: #fff;
+    color: var(--ink);
+    font-weight: 600;
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    border: 1px solid var(--ink);
+  }
+  .evt.mag::before { background: var(--ink); }
+  .day.milestone .evt {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.9);
+  }
+  .day.milestone .evt::before { background: rgba(255,255,255,0.5); }
+  .day.milestone .evt.mag {
+    background: #FFF;
+    color: var(--dark);
+    border: none;
+  }
+  .day.milestone .evt.mag::before { background: var(--dark); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 18px 24px;
+    background: rgba(246, 243, 235, 0.55);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-radius: 14px;
+    margin-bottom: 36px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  .legend .item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .legend .item i {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="PPPR.html">P/PP/R</a>
+      <a href="Infinity.html">Infinity</a>
+      <a href="Calendar.html" class="is-current">Calendar</a>
+      <a href="Ways of Working.html">Ways of working</a>
+      <a href="Links.html">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 05 · Coverage plan · 21 days</div>
+      <h1 class="page-title">Calendar<br><span class="italic">— from the day</span><br><span class="accent">I leave.</span></h1>
+      <p class="page-sub">Four weeks, two sprints, one OOO. Days I'd usually be in the room marked clearly so the team can plan around them.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Out of office</div>
+        <div class="v italic">May 28 — Jun 17<small>21 days</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Return</div>
+        <div class="v">Jun 18<small>Thursday</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- Sprint band -->
+  <div class="sprint-band">
+    <div class="band band-s11">
+      <span class="label"><span class="italic">Sprint</span> 11</span>
+      <span class="dates">May 25 — Jun 5</span>
+    </div>
+    <div class="band band-s12">
+      <span class="label"><span class="italic">Sprint</span> 12</span>
+      <span class="dates">Jun 8 — Jun 19</span>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="item"><i style="background: var(--accent);"></i>OOO / Chino</span>
+    <span class="item"><i style="background: var(--accent-2);"></i>Infinity</span>
+    <span class="item"><i style="background: var(--accent-3);"></i>P/PP/R</span>
+    <span class="item"><i style="background: var(--accent-4);"></i>FiGS all-hands</span>
+    <span class="item"><i style="background: var(--ink); border: 1px solid var(--ink);"></i>Milestone</span>
+  </div>
+
+  <!-- WEEK 1 -->
+  <section class="week">
+    <div class="week-head">
+      <div>
+        <div class="week-num">Week 01</div>
+        <div class="week-title">May 25 <span class="italic">— 29</span></div>
+      </div>
+      <p class="week-summary"><strong>Sprint 11 active</strong> · Chino OOO from May 28 · Magazine KO Friday.</p>
+    </div>
+    <div class="days">
+      <article class="day">
+        <div class="day-head"><span class="day-day">Mon</span><span class="day-num">25</span></div>
+        <span class="evt inf">S11 starts</span>
+        <span class="evt inf">Publish doc · step 04 begins</span>
+      </article>
+      <article class="day">
+        <div class="day-head"><span class="day-day">Tue</span><span class="day-num">26</span></div>
+        <span class="evt inf">CTA group review</span>
+        <span class="evt inf">ZigZag kickoff</span>
+      </article>
+      <article class="day">
+        <div class="day-head"><span class="day-day">Wed</span><span class="day-num">27</span></div>
+        <span class="evt pppr">Store + Fi sync</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Thu</span><span class="day-num">28<span class="italic"> · OOO</span></span></div>
+        <span class="evt warn">← Chino OOO starts</span>
+        <span class="evt figs">FiGS Weekly Ops</span>
+        <span class="evt inf">Infinity Intake</span>
+      </article>
+      <article class="day milestone">
+        <div class="day-head"><span class="day-day">Fri</span><span class="day-num">29</span></div>
+        <span class="evt mag">🚀 Magazine KO</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- WEEK 2 -->
+  <section class="week">
+    <div class="week-head">
+      <div>
+        <div class="week-num">Week 02</div>
+        <div class="week-title">Jun 2 <span class="italic">— 6</span></div>
+      </div>
+      <p class="week-summary"><strong>Sprint 11 mid-flight</strong> · ZigZag + Diffusion in progress · Sprint report Friday.</p>
+    </div>
+    <div class="days">
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Mon</span><span class="day-num">2</span></div>
+        <span class="evt figs">FiGS Weekly Ops</span>
+        <span class="evt inf">Infinity Intake</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Tue</span><span class="day-num">3</span></div>
+        <span class="evt inf">ZigZag + Diffusion WIP</span>
+        <span class="evt pppr">Magazine prep</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Wed</span><span class="day-num">4</span></div>
+        <span class="evt pppr">Store + Fi sync</span>
+        <span class="evt pppr">Magazine prep</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Thu</span><span class="day-num">5</span></div>
+        <span class="evt inf">S11 ends · OH Review</span>
+        <span class="evt inf">Publish doc update</span>
+      </article>
+      <article class="day milestone">
+        <div class="day-head"><span class="day-day">Fri</span><span class="day-num">6</span></div>
+        <span class="evt mag">S11 sprint report</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- WEEK 3 -->
+  <section class="week">
+    <div class="week-head">
+      <div>
+        <div class="week-num">Week 03</div>
+        <div class="week-title">Jun 9 <span class="italic">— 13</span></div>
+      </div>
+      <p class="week-summary"><strong>Sprint 12 starts</strong> · Magazine W1 · Selector tile push window.</p>
+    </div>
+    <div class="days">
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Mon</span><span class="day-num">9</span></div>
+        <span class="evt inf">S12 starts</span>
+        <span class="evt figs">FiGS Weekly Ops</span>
+        <span class="evt inf">Sprint plan</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Tue</span><span class="day-num">10</span></div>
+        <span class="evt inf">Icon updates begin</span>
+        <span class="evt pppr">Magazine W1</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Wed</span><span class="day-num">11</span></div>
+        <span class="evt pppr">Store + Fi sync</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Thu</span><span class="day-num">12</span></div>
+        <span class="evt inf">Infinity OH</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Fri</span><span class="day-num">13</span></div>
+        <span class="evt pppr">Selector tile push?</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- WEEK 4 -->
+  <section class="week">
+    <div class="week-head">
+      <div>
+        <div class="week-num">Week 04</div>
+        <div class="week-title">Jun 16 <span class="italic">— 19</span></div>
+      </div>
+      <p class="week-summary"><strong>Chino returns Jun 18.</strong> Sprint 12 mid · Magazine W2 · Google delivery Jun 19.</p>
+    </div>
+    <div class="days">
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Mon</span><span class="day-num">16</span></div>
+        <span class="evt figs">FiGS Weekly Ops</span>
+        <span class="evt pppr">Magazine W2</span>
+      </article>
+      <article class="day ooo-day">
+        <div class="day-head"><span class="day-day">Tue</span><span class="day-num">17<span class="italic"> · last OOO</span></span></div>
+        <span class="evt warn">← Last OOO day</span>
+        <span class="evt inf">Infinity grooming</span>
+      </article>
+      <article class="day milestone">
+        <div class="day-head"><span class="day-day">Wed</span><span class="day-num">18</span></div>
+        <span class="evt mag">← Chino back</span>
+        <span class="evt">S12 → Jun 19</span>
+      </article>
+      <article class="day">
+        <div class="day-head"><span class="day-day">Thu</span><span class="day-num">19</span></div>
+        <span class="evt mag">Google · S12 delivery</span>
+      </article>
+      <article class="day" style="background: transparent; border: 1px dashed var(--rule); align-items: center; justify-content: center;">
+        <div style="font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--muted); text-align: center; margin: auto;">Weekend.<br>Done.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · Calendar / 21 days · 4 weeks</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>

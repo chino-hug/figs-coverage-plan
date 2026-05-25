@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinity — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Publish doc — feature */
+  .publish {
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 22px;
+    padding: 40px 44px 36px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(24,22,19,0.04),
+      0 8px 32px rgba(20,18,14,0.07);
+  }
+  .publish:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 24px 60px -30px rgba(20,18,14,0.28);
+  }
+  .publish::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent-2);
+  }
+  .pub-top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+    flex-wrap: wrap; margin-bottom: 22px;
+  }
+  .pub-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pub-eyebrow::before { content:''; width: 36px; height: 1px; background: var(--accent-2); }
+  .pub-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .pub-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); letter-spacing: -0.02em; }
+  .pub-note {
+    margin-top: 12px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 620px;
+  }
+  .pub-note strong { color: var(--ink); font-weight: 500; }
+
+  .pub-phases {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 24px 0 22px;
+  }
+  @media (max-width: 880px) { .pub-phases { grid-template-columns: repeat(2, 1fr); } }
+  .ph {
+    background: var(--paper-2);
+    border: 1px solid var(--rule-soft);
+    border-radius: 12px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .ph.done { background: rgba(46,93,58,0.08); border-color: rgba(46,93,58,0.18); }
+  .ph.next { background: var(--dark); border-color: transparent; color: rgba(255,255,255,0.92); }
+  .ph-l {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ph.done .ph-l { color: var(--accent-2); }
+  .ph.done .ph-l::before { content: '✓'; }
+  .ph.next .ph-l { color: #F4A99B; }
+  .ph.next .ph-l::before { content: '●'; font-size: 6px; }
+  .ph-c { font-size: 12px; line-height: 1.5; color: var(--ink-2); }
+  .ph.next .ph-c { color: rgba(255,255,255,0.75); }
+
+  .pub-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-soft);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .pub-foot-note { font-size: 12.5px; color: var(--muted); max-width: 560px; line-height: 1.6; }
+  .pub-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .pub-link .arr {
+    width: 36px; height: 36px;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: transform .2s, background .2s, color .2s;
+  }
+  .pub-link:hover .arr { transform: rotate(-45deg); background: var(--ink); color: var(--paper); }
+
+  /* Sprint block */
+  .sprint {
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(24,22,19,0.04),
+      0 6px 28px rgba(20,18,14,0.06);
+  }
+  .sprint:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      0 24px 60px -30px rgba(20,18,14,0.28);
+  }
+  .sprint-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+    flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .sprint-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .sprint-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); letter-spacing: -0.02em; }
+  .sprint-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .sp-pill {
+    font-family: var(--serif);
+    font-size: 32px;
+    color: var(--accent-2);
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .sp-pill small {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    margin-left: 6px;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+  .sprint-goal {
+    background: rgba(246, 243, 235, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-left: 2px solid var(--accent-2);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+  .sprint-note {
+    background: rgba(180,71,31,0.06);
+    border: 1px solid rgba(180,71,31,0.15);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .sprint-note .ico { font-size: 18px; flex-shrink: 0; }
+  .sprint-note .body { font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+  .sprint-note .body strong { color: var(--ink); font-weight: 500; }
+  .sprint-note .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .ooo-row td {
+    background: rgba(180,71,31,0.04) !important;
+    color: var(--accent) !important;
+    font-style: italic;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 17px;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html">Team</a>
+      <a href="PPPR.html">P/PP/R</a>
+      <a href="Infinity.html" class="is-current">Infinity</a>
+      <a href="Calendar.html">Calendar</a>
+      <a href="Ways of Working.html">Ways of working</a>
+      <a href="Links.html">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 04 · Coverage plan · Design System</div>
+      <h1 class="page-title">Infinity<br><span class="italic">— two sprints,</span><br><span class="accent">one publish doc.</span></h1>
+      <p class="page-sub">S11 carries ZigZag (P0) and Diffusion step 04. S12 picks up Icon Updates. Marcela owns the call on re-prioritization.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Lead</div>
+        <div class="v italic">Marcela<small>VDL</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">PM</div>
+        <div class="v italic">Cecilia Muñoz<small>PM</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Sprints</div>
+        <div class="v italic">S11 · S12<small>May 25 — Jun 19</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- PUBLISH DOC -->
+  <section class="publish" id="publish">
+    <div class="pub-top">
+      <div>
+        <div class="pub-eyebrow">№ 01 · Live document · Marcela owns</div>
+        <h2 class="pub-title">Diffusion Effect<br><span class="italic">— publish status doc.</span></h2>
+        <p class="pub-note"><strong>📌 Update this after every publish step</strong> during S11 and S12. It is the live reference for the team and for Google — do not let it go stale.</p>
+      </div>
+      <span class="tag clay">📌 Keep current</span>
+    </div>
+
+    <div class="pub-phases">
+      <div class="ph done"><div class="ph-l">00 · Done</div><div class="ph-c">Google review + feedback at component level.</div></div>
+      <div class="ph done"><div class="ph-l">01 · Done</div><div class="ph-c">Pilot — CTA component. feat/effect-cta-pilot.</div></div>
+      <div class="ph done"><div class="ph-l">02 · Done</div><div class="ph-c">Core Integration — tokens abstracted. Core Library published.</div></div>
+      <div class="ph done"><div class="ph-l">03 · Done</div><div class="ph-c">Ecosystem Propagation — Module + Community updated.</div></div>
+      <div class="ph next"><div class="ph-l">04 · S11 ← starts here</div><div class="ph-c">Systematic Replication. Architecture audit, logic mapping, z-index validation.</div></div>
+    </div>
+
+    <div class="pub-foot">
+      <div class="pub-foot-note">Every time a publish step completes, Marcela updates the doc with date, status, and libraries affected. It is Google's source of truth for sprint reports.</div>
+      <a class="pub-link" href="https://docs.google.com/document/d/1LX3JjvRE9AwYok0MAQVxdYtyhIIvmKUEeQ-MvyxWFTo/edit" target="_blank">
+        Open publish doc <span class="arr">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SPRINT 11 -->
+  <section class="sec" id="s11">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 / Sprint 11</div>
+        <h2 class="sec-title">May 25 <span class="italic">— June 5</span></h2>
+      </div>
+      <p class="sec-desc">Chino OOO from May 28 · Faith OOO May 22–26 · ZigZag impacts summer launches.</p>
+    </div>
+
+    <div class="sprint">
+      <div class="sprint-head">
+        <div>
+          <div class="sprint-title">Sprint <span class="italic">11.</span></div>
+          <div class="sprint-meta">May 25 — June 5 · 10 working days</div>
+        </div>
+        <div class="sp-pill">32<small>SP total</small></div>
+      </div>
+      <div class="sprint-goal">Expanding Eichler — Diffusion Effect system-wide propagation (step 04) + introducing ZigZag Singlecolumn Intro alignment (P0). Update the publish doc after every completed step.</div>
+
+      <div class="sprint-note">
+        <div class="ico">📌</div>
+        <div class="body">
+          <div class="label">Note for Marcela &amp; Ceci</div>
+          <strong>ZigZag (P0 · 13 SP) impacts summer launches</strong> — Google ticket not yet created, follow up with Faith on day one. CTA group is L/XL, use Audit + Findings + Proposal approach. Tasks may vary per Faith's direction — Marcela owns the call on re-prioritization.
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr>
+            <th style="width:38%">Task</th>
+            <th style="width:14%">Buganizer</th>
+            <th style="width:8%">SP</th>
+            <th style="width:10%">Priority</th>
+            <th>Notes</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td class="serif">CTA group component <span class="italic">— Audit, Findings, Proposal</span></td>
+              <td><a class="bug" href="https://b.corp.google.com/issues/450563327" target="_blank">b/450563327</a></td>
+              <td><span class="tag sp">8</span></td>
+              <td><span class="tag p2">P2</span></td>
+              <td class="muted">Rachel won't review until early June. Start now.</td>
+            </tr>
+            <tr>
+              <td class="serif">Diffusion Effect <span class="italic">— step 04 propagation</span></td>
+              <td><a class="bug" href="https://b.corp.google.com/issues/512852446" target="_blank">b/512852446</a></td>
+              <td><span class="tag sp">3</span></td>
+              <td><span class="tag p1">P1</span></td>
+              <td class="muted">Update publish doc after each component completed.</td>
+            </tr>
+            <tr>
+              <td class="serif">Icon Button <span class="italic">— Diffusion Effect execution</span></td>
+              <td class="muted">Google to create</td>
+              <td><span class="tag sp">3</span></td>
+              <td><span class="tag p1">P1</span></td>
+              <td class="muted">Ticket pending from Google.</td>
+            </tr>
+            <tr>
+              <td class="serif">Accessories Wall <span class="italic">— general review</span></td>
+              <td class="muted">Huge to create</td>
+              <td><span class="tag sp">5</span></td>
+              <td><span class="tag p2">P2</span></td>
+              <td class="muted">Placeholder — Huge to create ticket.</td>
+            </tr>
+            <tr>
+              <td class="serif">Module <span class="italic">updates</span></td>
+              <td class="muted">placeholder</td>
+              <td class="muted">—</td>
+              <td><span class="tag p2">P2</span></td>
+              <td class="muted">Faith to share Figma with areas needing update.</td>
+            </tr>
+            <tr style="background: rgba(180,61,44,0.03);">
+              <td class="serif"><strong>ZigZag</strong> <span class="italic">— Align Singlecolumn Intro</span></td>
+              <td class="muted">Google creating</td>
+              <td><span class="tag sp">13</span></td>
+              <td><span class="tag p0">P0</span></td>
+              <td class="warn">🚨 Summer launches depend on this. Google creating ticket after internal alignment.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPRINT 12 -->
+  <section class="sec" id="s12">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">03 / Sprint 12</div>
+        <h2 class="sec-title">June 8 <span class="italic">— June 19</span></h2>
+      </div>
+      <p class="sec-desc">Chino returns Jun 18 · Ceci OOO Jun 18–22 · Google delivery June 19.</p>
+    </div>
+
+    <div class="sprint">
+      <div class="sprint-head">
+        <div>
+          <div class="sprint-title">Sprint <span class="italic">12.</span></div>
+          <div class="sprint-meta">June 8 — June 19 · Icon Updates focus</div>
+        </div>
+        <div class="sp-pill">S12<small>scoped</small></div>
+      </div>
+      <div class="sprint-goal">Bringing back Icon Updates — completing all IU tasks. Propagation and placeholder tasks carry over from S11.</div>
+
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr>
+            <th style="width:38%">Task</th>
+            <th style="width:14%">Buganizer</th>
+            <th style="width:8%">SP</th>
+            <th style="width:10%">Priority</th>
+            <th>Notes</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="serif">IU#1 <span class="italic">— Reorganize + new categories</span></td><td><a class="bug" href="https://b.corp.google.com/issues/502210564" target="_blank">b/502210564</a></td><td class="muted">—</td><td><span class="tag p2">P2</span></td><td class="muted"></td></tr>
+            <tr><td class="serif">IU#2 <span class="italic">— Deprecate duplicates</span></td><td><a class="bug" href="https://b.corp.google.com/issues/502211608" target="_blank">b/502211608</a></td><td class="muted">—</td><td><span class="tag p2">P2</span></td><td class="muted"></td></tr>
+            <tr><td class="serif">IU#3 <span class="italic">— Metadata + search</span></td><td><a class="bug" href="https://b.corp.google.com/issues/502212528" target="_blank">b/502212528</a></td><td class="muted">—</td><td><span class="tag p2">P2</span></td><td class="muted"></td></tr>
+            <tr><td class="serif">IU#4 <span class="italic">— Stroke + fill variants</span></td><td><a class="bug" href="https://b.corp.google.com/issues/502212178" target="_blank">b/502212178</a></td><td><span class="tag sp">XL</span></td><td><span class="tag p2">P2</span></td><td class="warn">⚠️ XL — flag early if scope expands.</td></tr>
+            <tr><td class="serif">CTA group <span class="italic">— carry over from S11</span></td><td><a class="bug" href="https://b.corp.google.com/issues/450563327" target="_blank">b/450563327</a></td><td><span class="tag sp">L</span></td><td><span class="tag p2">P2</span></td><td class="muted">Continue from S11 if not completed.</td></tr>
+            <tr><td class="serif">Publish + propagation <span class="italic">— Icon Button + Diffusion</span></td><td class="muted">placeholder</td><td class="muted">—</td><td><span class="tag p1">P1</span></td><td class="muted">Carry over from S11. Update publish doc on completion.</td></tr>
+            <tr><td class="serif">Finding <span class="italic">— Building Block from Past</span></td><td class="muted">placeholder</td><td class="muted">—</td><td><span class="tag p2">P2</span></td><td class="muted"></td></tr>
+            <tr><td class="serif">Finding <span class="italic">— Pricing carryover</span></td><td class="muted">Huge to create</td><td><span class="tag sp">5</span></td><td><span class="tag p2">P2</span></td><td class="muted"></td></tr>
+            <tr class="ooo-row"><td colspan="5">⚠ Ceci OOO Jun 18–22 · Chino returns Jun 18 · Google | June 19</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · Infinity / S11 + S12 · 27 working days</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Team — FiGS Coverage Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  /* Team grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 1080px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px)  { .team-grid { grid-template-columns: 1fr; } }
+
+  .mate {
+    position: relative;
+    background: rgba(251, 250, 246, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    padding: 26px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 240px;
+    transition: transform .25s ease, box-shadow .25s ease;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(24,22,19,0.04),
+      0 6px 28px rgba(20,18,14,0.06);
+  }
+  .mate:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 24px 60px -30px rgba(20,18,14,0.28); }
+  .mate.lead { background: rgba(246, 243, 235, 0.62); }
+  .mate.lead::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--strand-color, var(--accent));
+  }
+  .mate-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .mate-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted-2);
+  }
+  .mate-initials {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 5px 10px;
+    border-radius: 100px;
+    background: rgba(24,22,19,0.05);
+    color: var(--ink);
+  }
+  .mate-name {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-top: auto;
+  }
+  .mate-name .italic { font-style: italic; color: var(--muted); font-size: 24px; display: block; }
+  .mate-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .mate-task {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .mate-task strong { color: var(--ink); font-weight: 500; }
+
+  .strand-pppr { --strand-color: var(--accent-3); }
+  .strand-inf  { --strand-color: var(--accent-2); }
+  .strand-fi   { --strand-color: var(--accent); }
+  .strand-pm   { --strand-color: var(--accent-4); }
+
+  /* Strand divider */
+  .strand-head {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 24px;
+    align-items: end;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .strand-title {
+    font-family: var(--gsans);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+  }
+  .strand-title .italic { font-family: var(--serif); font-weight: 400; font-style: italic; color: var(--muted); letter-spacing: -0.02em; }
+  .strand-bullet {
+    display: inline-block;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--strand-color, var(--accent));
+  }
+  .strand-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="brand"><span class="b-dot"></span><span>FiGS — Coverage Plan / 26·05</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Team.html" class="is-current">Team</a>
+      <a href="PPPR.html">P/PP/R</a>
+      <a href="Infinity.html">Infinity</a>
+      <a href="Calendar.html">Calendar</a>
+      <a href="Ways of Working.html">Ways of working</a>
+      <a href="Links.html">Links</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">№ 02 · Coverage plan · The team</div>
+      <h1 class="page-title">The <span class="italic">team,</span><br><span class="accent">in strands.</span></h1>
+      <p class="page-sub">Four workstreams, fifteen people. Each strand has a lead, a PM, and a clear focus for the next three weeks.</p>
+    </div>
+    <aside class="page-meta">
+      <div class="meta-block">
+        <div class="k">Workstreams</div>
+        <div class="v italic">Four<small>P/PP/R · Infinity · Fi · PMs</small></div>
+      </div>
+      <div class="meta-block">
+        <div class="k">Escalation</div>
+        <div class="v italic">Matt Rennick<small>GCD</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="h-rule"></div>
+
+  <!-- P/PP/R -->
+  <section class="sec strand-pppr">
+    <div class="strand-head">
+      <h2 class="strand-title">
+        <span class="strand-bullet"></span>
+        P/PP/R <span class="italic">— Google Store</span>
+      </h2>
+      <div class="strand-meta">Strand 01 · Magazine + System</div>
+    </div>
+
+    <div class="team-grid">
+      <article class="mate lead">
+        <div class="mate-top"><span class="mate-num">№ 01 · Lead</span><span class="mate-initials">MP</span></div>
+        <div>
+          <div class="mate-name">Mafe<span class="italic">Pinzón</span></div>
+          <div class="mate-role">Visual Design Lead · COL</div>
+        </div>
+        <div class="mate-task"><strong>Magazine lead.</strong> Owns KO scoping, six-week timeline, and every decision before Matt.</div>
+      </article>
+
+      <article class="mate lead">
+        <div class="mate-top"><span class="mate-num">№ 02 · Lead</span><span class="mate-initials">CH</span></div>
+        <div>
+          <div class="mate-name">Cata <span class="italic">H.</span></div>
+          <div class="mate-role">Visual Design Lead · COL</div>
+        </div>
+        <div class="mate-task"><strong>System lead.</strong> Selector tile, Notice component, Z's page updates.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 03</span><span class="mate-initials">AT</span></div>
+        <div>
+          <div class="mate-name">Andrea<span class="italic">Torres</span></div>
+          <div class="mate-role">Sr. Visual Designer · COL</div>
+        </div>
+        <div class="mate-task">Pharos Q2 · UX Consistency.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 04</span><span class="mate-initials">JR</span></div>
+        <div>
+          <div class="mate-name">Juan<span class="italic">Rios</span></div>
+          <div class="mate-role">Sr. Visual Designer · COL</div>
+        </div>
+        <div class="mate-task">Pharos Q2 · UX Consistency.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- INFINITY -->
+  <section class="sec strand-inf">
+    <div class="strand-head">
+      <h2 class="strand-title">
+        <span class="strand-bullet"></span>
+        Infinity <span class="italic">— Design System</span>
+      </h2>
+      <div class="strand-meta">Strand 02 · Sprint-driven</div>
+    </div>
+
+    <div class="team-grid">
+      <article class="mate lead">
+        <div class="mate-top"><span class="mate-num">№ 01 · Lead</span><span class="mate-initials">MA</span></div>
+        <div>
+          <div class="mate-name">Marcela<span class="italic">VDL</span></div>
+          <div class="mate-role">Visual Design Lead · COL</div>
+        </div>
+        <div class="mate-task"><strong>S11 lead.</strong> Publish doc owner. Guides Selector tile from the Infinity side.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 02</span><span class="mate-initials">SM</span></div>
+        <div>
+          <div class="mate-name">Santiago<span class="italic">Martínez</span></div>
+          <div class="mate-role">Sr. Visual Designer · COL</div>
+        </div>
+        <div class="mate-task">S11 — Diffusion propagation.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 03</span><span class="mate-initials">JG</span></div>
+        <div>
+          <div class="mate-name">Jessica<span class="italic">Garcia</span></div>
+          <div class="mate-role">Sr. Visual Designer · COL</div>
+        </div>
+        <div class="mate-task">S11 — CTA group · Icon work.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 04</span><span class="mate-initials">JL</span></div>
+        <div>
+          <div class="mate-name">Julian<span class="italic">Lozano</span></div>
+          <div class="mate-role">Sr. Visual Designer · US</div>
+        </div>
+        <div class="mate-task">S11 — ZigZag · Diffusion.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FI -->
+  <section class="sec strand-fi">
+    <div class="strand-head">
+      <h2 class="strand-title">
+        <span class="strand-bullet"></span>
+        Fi <span class="italic">— Google Fi</span>
+      </h2>
+      <div class="strand-meta">Strand 03 · On hold · Maintenance only</div>
+    </div>
+
+    <div class="team-grid">
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 01</span><span class="mate-initials">FE</span></div>
+        <div>
+          <div class="mate-name">Felippi<span class="italic">—</span></div>
+          <div class="mate-role">Visual Designer · CAN</div>
+        </div>
+        <div class="mate-task">Fruit Punch Troubleshooter · PERs.</div>
+      </article>
+
+      <article class="mate">
+        <div class="mate-top"><span class="mate-num">№ 02</span><span class="mate-initials">JM</span></div>
+        <div>
+          <div class="mate-name">Jonatan<span class="italic">Martinez</span></div>
+          <div class="mate-role">Sr. Visual Designer · COL</div>
+        </div>
+        <div class="mate-task">Fruit Punch Troubleshooter · UX Consistency.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PMs -->
+  <section class="sec strand-pm">
+    <div class="strand-head">
+      <h2 class="strand-title">
+        <span class="strand-bullet"></span>
+        Project <span class="italic">Managers</span>
+      </h2>
+      <div class="strand-meta">Strand 04 · Intake · Coordination</div>
+    </div>
+
+    <div class="team-grid">
+      <article class="mate lead">
+        <div class="mate-top"><span class="mate-num">№ 01</span><span class="mate-initials">CM</span></div>
+        <div>
+          <div class="mate-name">Cecilia<span class="italic">Muñoz</span></div>
+          <div class="mate-role">Project Manager · Infinity</div>
+        </div>
+        <div class="mate-task">Sprint planning · ceremonies · Google delivery.</div>
+      </article>
+
+      <article class="mate lead">
+        <div class="mate-top"><span class="mate-num">№ 02</span><span class="mate-initials">JG</span></div>
+        <div>
+          <div class="mate-name">Jhonatan<span class="italic">Grajales</span></div>
+          <div class="mate-role">Sr. Project Manager · P/PP/R · Fi</div>
+        </div>
+        <div class="mate-task">Magazine coordination · client communication.</div>
+      </article>
+
+      <article class="mate" style="background: transparent; border: 1px dashed var(--rule); align-items: center; justify-content: center; text-align: center; min-height: 240px;">
+        <div style="font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--muted); line-height: 1.4;">All decisions<br>flow through<br>the two PMs.</div>
+      </article>
+
+      <article class="mate" style="background: transparent; border: 1px dashed var(--rule); align-items: center; justify-content: center; text-align: center; min-height: 240px;">
+        <div style="font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--muted); line-height: 1.4;">Escalate to<br>Matt only if<br>client-facing.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>FiGS · Team / 15 people · 4 strands</span>
+    <a href="index.html">← Back to coverage plan</a>
+  </footer>
+
+</div>
+</body>
+</html>
